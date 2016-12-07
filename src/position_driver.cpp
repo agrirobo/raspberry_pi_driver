@@ -6,8 +6,6 @@
 
 #include <wiringPi.h>
 
-using func = void (*)(void);
-
 template <typename Command>
 class RPiDriver {
   ros::Subscriber sub_;
@@ -34,10 +32,12 @@ public:
       odometry_ {},
       pulse_ {}
   {
-    node_handle.param("tolerance_", tolerance_, default_tolerance_);
+    // wirinPiSetuphogehoge // TODO
+
+    node_handle.param("tolerance", tolerance_, default_tolerance_);
     node_handle.param("cw_ccw", cw_ccw_, default_cw_ccw_);
-    node_handle.param("start_stop_", start_stop_, default_start_stop_);
-    node_handle.param("interrupt_", interrupt_, default_interrupt_);
+    node_handle.param("start_stop", start_stop_, default_start_stop_);
+    node_handle.param("interrupt", interrupt_, default_interrupt_);
 
     wiringPiISR(interrupt_, INT_EDGE_RISING, &RPiDriver::interrupt);
   }
