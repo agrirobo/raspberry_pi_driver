@@ -34,10 +34,10 @@ public:
   {
     // wirinPiSetuphogehoge // TODO
 
-    node_handle.param("tolerance", tolerance_, default_tolerance_);
-    node_handle.param("cw_ccw", cw_ccw_, default_cw_ccw_);
-    node_handle.param("start_stop", start_stop_, default_start_stop_);
-    node_handle.param("interrupt", interrupt_, default_interrupt_);
+    node_handle.getParam("tolerance", tolerance_);
+    node_handle.getParam("cw_ccw", cw_ccw_);
+    node_handle.getParam("start_stop", start_stop_);
+    node_handle.getParam("interrupt", interrupt_);
 
     wiringPiISR(interrupt_, INT_EDGE_RISING, &RPiDriver::interrupt);
   }
