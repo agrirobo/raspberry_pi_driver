@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(position_driver CXX)
+project(raspberry_pi_driver CXX)
 
 add_definitions("-std=c++11")
 

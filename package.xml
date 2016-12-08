@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <package format="2">
-  <name> position_driver </name>
+  <name> raspberry_pi_driver </name>
   <version> 0.0.1 </version>
   <description>
     hogehoge
