@@ -8,6 +8,7 @@
     <arg name="interrupt" value="" />       <!-- TODO -->
     <arg name="reduction_ratio" value="" /> <!-- TODO -->
     <arg name="wheel_radius" value="" />    <!-- TODO -->
+    <arg name="pulse_per_spin" value="" />  <!-- TODO -->
   </include>
 
   <include ns="shaft_to_arm0_joint"
@@ -18,6 +19,7 @@
     <arg name="interrupt" value="" />       <!-- TODO -->
     <arg name="reduction_ratio" value="" /> <!-- TODO -->
     <arg name="wheel_radius" value="" />    <!-- TODO -->
+    <arg name="pulse_per_spin" value="" />  <!-- TODO -->
   </include>
 
 </launch>
