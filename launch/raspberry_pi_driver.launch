@@ -1,12 +1,21 @@
 <launch>
 
   <arg name="node_name" default="position_driver_node" />
-  <arg name="sub_topic" default="command" />
-  <arg name="pub_topic" default="odometry" />
+  <arg name="sub_topic" default="cmd_pos" />
+  <arg name="pub_topic" default="odom" />
+  <arg name="tolerance" default="0.1" />
+  <arg name="cw_ccw" />
+  <arg name="start_top" />
+  <arg name="interrupt" />
 
   <node name="$(arg node_name)" pkg="raspberry_pi_driver" type="raspbery_pi_driver_node">
     <remap from="sub_topic" to="$(arg sub_topic)" />
     <remap from="pub_topic" to="$(arg pub_topic)" />
+
+    <param name="tolerance"  value="$(arg tolerance)" />
+    <param name="cw_ccw"     value="$(arg cw_ccw)" />
+    <param name="start_stop" value="$(arg start_stop)" />
+    <param name="interruput" value="$(arg interruput)" />
   </node>
 
 </launch>
