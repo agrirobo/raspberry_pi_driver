@@ -57,6 +57,7 @@ private:
   {
     command_ = *command;
     odometry_.pose.pose.position.x = pulse_ * wheel_radius_ * pulse_per_spin_ * reduction_ratio_;
+    pub_.publish(odometry_);
   }
 
   static void interrupt()
