@@ -1,0 +1,14 @@
+<launch>
+
+  <include ns="rail_to_shaft_joint"
+           file="$(find raspberry_pi_driver)/launch/raspberry_pi_driver.launch">
+    <arg name="node_name" value="base_driver_node" />
+    <arg name="cw_ccw" value="38" />          <!-- TODO -->
+    <arg name="start_stop" value="36" />      <!-- TODO -->
+    <arg name="interrupt" value="40" />       <!-- TODO -->
+    <arg name="reduction_ratio" value="100" /> <!-- TODO -->
+    <arg name="wheel_radius" value="0.05" />    <!-- TODO -->
+    <arg name="pulse_per_spin" value="12" />  <!-- TODO -->
+  </include>
+
+</launch>
