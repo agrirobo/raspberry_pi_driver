@@ -29,7 +29,7 @@ public:
       command_ {},
       odometry_ {}
   {
-    // wirinPiSetuphogehoge // TODO
+    if (wiringPiSetupPhys() < 0) ROS_ERROR_STREAM("[ERROR] wiringPiSetupPhys()");
 
     node_handle.getParam("tolerance", tolerance_);
     node_handle.getParam("cw_ccw", cw_ccw_);
@@ -38,6 +38,8 @@ public:
     node_handle.getParam("reduction_ratio", reduction_ratio_);
     node_handle.getParam("wheel_radius", wheel_radius_);
 
+    pinMode(cw_ccw_, OUTPUT);
+    pinMode(start_stop_, OUTPUT);
     wiringPiISR(interrupt_, INT_EDGE_RISING, &RPiDriver::interrupt);
   }
 
