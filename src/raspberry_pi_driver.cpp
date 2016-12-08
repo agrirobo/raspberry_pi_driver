@@ -39,7 +39,7 @@ public:
 
   void write()
   {
-    if ((cw_ccw_ = command_ - odometry_.pose.pose.position.x) >= 0) digitalWrite(cw_ccw_, HIGH);
+    if ((cw_ccw_ = command_.x - odometry_.pose.pose.position.x) >= 0) digitalWrite(cw_ccw_, HIGH);
     else digitalWrite(cw_ccw_, LOW);
 
     if (abs(cw_ccw_) > tolerance_) digitalWrite(start_stop_, HIGH);
