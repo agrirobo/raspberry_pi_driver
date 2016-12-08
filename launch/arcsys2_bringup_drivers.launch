@@ -1,0 +1,25 @@
+<launch>
+
+  <include ns="rail_to_shaft_joint"
+           file="$(find raspberry_pi_driver)/launch/rasberry_pi_driver.launch">
+    <arg name="node_name" value="base_driver_node" />
+    <arg name="cw_ccw" value="" />          <!-- TODO -->
+    <arg name="start_stop" value="" />      <!-- TODO -->
+    <arg name="interrupt" value="" />       <!-- TODO -->
+    <arg name="reduction_ratio" value="" /> <!-- TODO -->
+    <arg name="wheel_radius" value="" />    <!-- TODO -->
+    <arg name="pulse_per_spin" value="" />  <!-- TODO -->
+  </include>
+
+  <include ns="shaft_to_arm0_joint"
+           file="$(find raspberry_pi_driver)/launch/rasberry_pi_driver.launch">
+    <arg name="node_name" value="shaft_driver_node" />
+    <arg name="cw_ccw" value="" />          <!-- TODO -->
+    <arg name="start_stop" value="" />      <!-- TODO -->
+    <arg name="interrupt" value="" />       <!-- TODO -->
+    <arg name="reduction_ratio" value="" /> <!-- TODO -->
+    <arg name="wheel_radius" value="" />    <!-- TODO -->
+    <arg name="pulse_per_spin" value="" />  <!-- TODO -->
+  </include>
+
+</launch>
