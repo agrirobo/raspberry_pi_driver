@@ -18,7 +18,7 @@ class RPiDriver {
   static constexpr double default_tolerance_ {0.1};
 
   size_t cw_ccw_, start_stop_, interrupt_;
-  static constexpr size_t default_cw_ccw_, {1}; // TODO
+  static constexpr size_t default_cw_ccw_ {1}; // TODO
   static constexpr size_t default_start_stop_ {2}; // TODO
   static constexpr size_t default_interrupt_ {3}; // TODO
 
@@ -26,11 +26,11 @@ class RPiDriver {
 
 public:
   RPiDriver(ros::NodeHandle& node_handle)
-    : sub_ {node_handle.subscribe<Command>("command", &RPiDriver::callback)},
-      pub_ {node_handle.advertise<nav_msgs::Odometry>("odometry", 1)},
+    : sub_ {node_handle.subscribe<Command>("sub_topic", &RPiDriver::callback, this)},
+      pub_ {node_handle.advertise<nav_msgs::Odometry>("pub_topic", 1)},
       command_ {},
       odometry_ {},
-      pulse_ {}
+      pulse_ {0}
   {
     // wirinPiSetuphogehoge // TODO
 
@@ -57,7 +57,7 @@ private:
   void interrupt()
   {
     if (cw_ccw_ >= 0) pulse_++;
-    else pulse--;
+    else pulse_--;
   }
 };
 
