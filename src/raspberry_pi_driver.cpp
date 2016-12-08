@@ -6,12 +6,11 @@
 
 #include <wiringPi.h>
 
-template <typename Command>
 class RPiDriver {
   ros::Subscriber sub_;
   ros::Publisher pub_;
 
-  Command command_;
+  geometry_msgs::Point command_;
   nav_msgs::Odometry odometry_;
 
   double tolerance_;
@@ -26,7 +25,7 @@ class RPiDriver {
 
 public:
   RPiDriver(ros::NodeHandle& node_handle)
-    : sub_ {node_handle.subscribe<Command>("sub_topic", &RPiDriver::callback, this)},
+    : sub_ {node_handle.subscribe<geometry_msgs::Point>("sub_topic", 1, &RPiDriver::callback, this)},
       pub_ {node_handle.advertise<nav_msgs::Odometry>("pub_topic", 1)},
       command_ {},
       odometry_ {},
@@ -52,7 +51,7 @@ public:
   }
 
 private:
-  void callback(const typename Command::ConstPtr& command) { command_ = *command; }
+  void callback(const geometry_msgs::PointConstPtr& command) { command_ = *command; }
 
   void interrupt()
   {
@@ -67,7 +66,7 @@ int main(int argc, char** argv)
   ros::NodeHandle node_handle {};
   ros::Rate rate {ros::Duration(1.0)};
 
-  RPiDriver<geometry_msgs::Point> driver {node_handle};
+  RPiDriver driver {node_handle};
 
   while (ros::ok()) {
     driver.write();
