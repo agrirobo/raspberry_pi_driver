@@ -53,7 +53,11 @@ public:
   }
 
 private:
-  void callback(const geometry_msgs::PointConstPtr& command) { command_ = *command; }
+  void callback(const geometry_msgs::PointConstPtr& command)
+  {
+    command_ = *command;
+    odometry_.pose.pose.position.x = pulse_ * wheel_radius_ * pulse_per_spin_ * reduction_ratio_;
+  }
 
   static void interrupt()
   {
@@ -69,7 +73,7 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "position_driver_node");
   ros::NodeHandle node_handle {};
-  ros::Rate rate {ros::Duration(1.0)};
+  ros::Rate rate {ros::Duration(0.1)};
 
   RPiDriver driver {node_handle};
 
