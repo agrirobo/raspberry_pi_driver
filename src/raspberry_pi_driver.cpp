@@ -19,6 +19,8 @@ class RPiDriver {
   int start_stop_, interrupt_;
   static int cw_ccw_;
   static int pulse_;
+  static int reduction_ratio_;
+  static int wheel_radius_;
 
 public:
   RPiDriver(ros::NodeHandle& node_handle)
@@ -33,6 +35,8 @@ public:
     node_handle.getParam("cw_ccw", cw_ccw_);
     node_handle.getParam("start_stop", start_stop_);
     node_handle.getParam("interrupt", interrupt_);
+    node_handle.getParam("reduction_ratio", reduction_ratio_);
+    node_handle.getParam("wheel_radius", wheel_radius_);
 
     wiringPiISR(interrupt_, INT_EDGE_RISING, &RPiDriver::interrupt);
   }
@@ -58,6 +62,8 @@ private:
 
 int RPiDriver::cw_ccw_ {0};
 int RPiDriver::pulse_ {0};
+int RPiDriver::reduction_ratio_ {0};
+int RPiDriver::wheel_radius_ {0};
 
 int main(int argc, char** argv)
 {
