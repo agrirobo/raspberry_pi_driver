@@ -6,7 +6,7 @@
 
 #include <wiringPi.h>
 
-class RPiDriver {
+class RaspberryPiDriver {
   ros::Subscriber sub_;
   ros::Publisher pub_;
 
@@ -23,8 +23,8 @@ class RPiDriver {
   static bool is_cw_;
 
 public:
-  RPiDriver(ros::NodeHandle& node_handle)
-    : sub_ {node_handle.subscribe<geometry_msgs::Point>("sub_topic", 1, &RPiDriver::callback, this)},
+  RaspberryPiDriver(ros::NodeHandle& node_handle)
+    : sub_ {node_handle.subscribe<geometry_msgs::Point>("sub_topic", 1, &RaspberryPiDriver::callback, this)},
       pub_ {node_handle.advertise<nav_msgs::Odometry>("pub_topic", 1)},
       command_ {},
       odometry_ {}
@@ -51,7 +51,7 @@ public:
 
     pinMode(cw_ccw_, OUTPUT);
     pinMode(start_stop_, OUTPUT);
-    wiringPiISR(interrupt_, INT_EDGE_RISING, &RPiDriver::interrupt);
+    wiringPiISR(interrupt_, INT_EDGE_RISING, &RaspberryPiDriver::interrupt);
   }
 
   void write()
@@ -61,7 +61,7 @@ public:
     if (is_cw_ = (distance > 0)) digitalWrite(cw_ccw_, HIGH);
     else digitalWrite(cw_ccw_, LOW);
 
-    if (RPiDriver::abs(distance) > tolerance_) digitalWrite(start_stop_, HIGH);
+    if (RaspberryPiDriver::abs(distance) > tolerance_) digitalWrite(start_stop_, HIGH);
     else digitalWrite(start_stop_, LOW);
 
     odometry_.pose.pose.position.x = pulse_ * wheel_radius_ / pulse_per_spin_ / reduction_ratio_;
@@ -89,9 +89,9 @@ private:
   }
 };
 
-int RPiDriver::cw_ccw_ {0};
-long RPiDriver::pulse_ {0};
-bool RPiDriver::is_cw_ {0};
+int RaspberryPiDriver::cw_ccw_ {0};
+long RaspberryPiDriver::pulse_ {0};
+bool RaspberryPiDriver::is_cw_ {0};
 
 int main(int argc, char** argv)
 {
@@ -99,7 +99,7 @@ int main(int argc, char** argv)
   ros::NodeHandle node_handle {};
   ros::Rate rate {ros::Duration(0.1)};
 
-  RPiDriver driver {node_handle};
+  RaspberryPiDriver driver {node_handle};
 
   while (ros::ok()) {
     driver.write();
