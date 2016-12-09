@@ -13,12 +13,16 @@ class RaspberryPiDriver {
   geometry_msgs::Point command_;
   nav_msgs::Odometry odometry_;
 
-  double tolerance_;
   static constexpr double pi_ {3.1415};
 
-  int start_stop_, interrupt_;
-  double reduction_ratio_, wheel_radius_, pulse_per_spin_;
+  double tolerance_;
+  bool reverse_;
+
   static int cw_ccw_;
+  int start_stop_, interrupt_;
+
+  double reduction_ratio_, wheel_radius_, pulse_per_spin_;
+
   static long pulse_;
   static bool is_cw_;
 
@@ -34,9 +38,12 @@ public:
     ros::NodeHandle pnh {"~"};
 
     assert(pnh.getParam("tolerance", tolerance_));
+    assert(pnh.getParam("reverse", reverse_));
+
     assert(pnh.getParam("cw_ccw", cw_ccw_));
     assert(pnh.getParam("start_stop", start_stop_));
     assert(pnh.getParam("interrupt", interrupt_));
+
     assert(pnh.getParam("reduction_ratio", reduction_ratio_));
     assert(pnh.getParam("wheel_radius", wheel_radius_));
     assert(pnh.getParam("pulse_per_spin", pulse_per_spin_));
@@ -58,8 +65,8 @@ public:
   {
     double distance {command_.x - odometry_.pose.pose.position.x};
 
-    if (is_cw_ = (distance > 0)) digitalWrite(cw_ccw_, HIGH);
-    else digitalWrite(cw_ccw_, LOW);
+    if (is_cw_ = (distance > 0)) reverse_ ? digitalWrite(cw_ccw_, HIGH) : digitalWrite(cw_ccw_, LOW);
+    else reverse_ ? digitalWrite(cw_ccw_, LOW) : digitalWrite(cw_ccw_, HIGH);
 
     if (RaspberryPiDriver::abs(distance) > tolerance_) digitalWrite(start_stop_, HIGH);
     else digitalWrite(start_stop_, LOW);
@@ -88,7 +95,7 @@ private:
   }
 };
 
-int RaspberryPiDriver::cw_ccw_ {0};
+int  RaspberryPiDriver::cw_ccw_ {0};
 long RaspberryPiDriver::pulse_ {0};
 bool RaspberryPiDriver::is_cw_ {0};
 
