@@ -79,20 +79,13 @@ private:
   void callback(const geometry_msgs::PointConstPtr& command)
   {
     command_ = *command;
-    ROS_INFO_STREAM("command: " << command_);
+    // ROS_INFO_STREAM("command: " << command_);
   }
 
-  static void interrupt()
-  {
-    if (is_cw_) pulse_++;
-    else pulse_--;
-  }
+  static void interrupt() { is_cw_ ? pulse_++ : pulse_--; }
 
   template <typename T>
-  static T abs(const T& value)
-  {
-    return value < 0 ? -value : value;
-  }
+  static T abs(const T& value) { return value < 0 ? -value : value; }
 };
 
 int  RaspberryPiDriver::cw_ccw_ {0};
