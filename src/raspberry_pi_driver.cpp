@@ -48,14 +48,6 @@ public:
     assert(pnh.getParam("wheel_radius", wheel_radius_));
     assert(pnh.getParam("pulse_per_spin", pulse_per_spin_));
 
-    ROS_INFO_STREAM("tolerance: " << tolerance_);
-    ROS_INFO_STREAM("cw_ccw: " << cw_ccw_);
-    ROS_INFO_STREAM("start_stop: " << start_stop_);
-    ROS_INFO_STREAM("intertupt:" << reduction_ratio_);
-    ROS_INFO_STREAM("wheel_radius:" << wheel_radius_);
-    ROS_INFO_STREAM("pulse_per_spin: " << pulse_per_spin_);
-    ROS_INFO_STREAM("reduction_ratio: " << reduction_ratio_);
-
     pinMode(cw_ccw_, OUTPUT);
     pinMode(start_stop_, OUTPUT);
     wiringPiISR(interrupt_, INT_EDGE_RISING, &RaspberryPiDriver::interrupt);
@@ -76,11 +68,7 @@ public:
   }
 
 private:
-  void callback(const geometry_msgs::PointConstPtr& command)
-  {
-    command_ = *command;
-    // ROS_INFO_STREAM("command: " << command_);
-  }
+  void callback(const geometry_msgs::PointConstPtr& command) { command_ = *command; }
 
   static void interrupt() { is_cw_ ? pulse_++ : pulse_--; }
 
