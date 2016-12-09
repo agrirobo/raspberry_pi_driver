@@ -79,7 +79,6 @@ private:
   {
     if (is_cw_) pulse_++;
     else pulse_--;
-    // ROS_INFO_STREAM(pulse_);
   }
 
   template <typename T>
