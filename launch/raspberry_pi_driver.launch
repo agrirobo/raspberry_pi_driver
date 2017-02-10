@@ -3,7 +3,9 @@
   <arg name="node_name" default="position_driver_node" />
   <arg name="sub_topic" default="cmd_pos" />
   <arg name="pub_topic" default="odom" />
+
   <arg name="tolerance" default="0.01" />
+  <arg name="reverse"   default="false" />
 
   <arg name="cw_ccw" />
   <arg name="start_stop" />
@@ -17,14 +19,16 @@
     <remap from="sub_topic" to="$(arg sub_topic)" />
     <remap from="pub_topic" to="$(arg pub_topic)" />
 
-    <param name="tolerance"  value="$(arg tolerance)" />
+    <param name="tolerance" value="$(arg tolerance)" />
+    <param name="reverse"   value="$(arg reverse)" />
+
     <param name="cw_ccw"     value="$(arg cw_ccw)" />
     <param name="start_stop" value="$(arg start_stop)" />
-    <param name="interrupt" value="$(arg interrupt)" />
+    <param name="interrupt"  value="$(arg interrupt)" />
 
     <param name="reduction_ratio" value="$(arg reduction_ratio)" />
     <param name="wheel_radius"    value="$(arg wheel_radius)" />
-    <param name="pulse_per_spin"    value="$(arg pulse_per_spin)" />
+    <param name="pulse_per_spin"  value="$(arg pulse_per_spin)" />
   </node>
 
 </launch>
