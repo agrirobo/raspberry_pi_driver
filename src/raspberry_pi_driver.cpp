@@ -1,3 +1,4 @@
+#include <atomic>
 #include <cstdlib>
 
 #include <ros/ros.h>
@@ -23,7 +24,8 @@ class RaspberryPiDriver {
 
   double reduction_ratio_, wheel_radius_, pulse_per_spin_;
 
-  static long pulse_;
+  static std::atomic_long pulse_;
+  
   static bool is_cw_;
 
 public:
